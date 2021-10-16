@@ -1,39 +1,54 @@
-#include <stdio.h>
-#include <stdbool.h>
+/* Codigo tomado de https://www.geeksforgeeks.org/maximum-sum-such-that-no-two-elements-are-adjacent/ */
+/* Modificado por: Fernando Cazares Jimenez */
+
+#include<stdio.h>
 
 #define arr_size 10
 int A[arr_size] = { 1, 4, 45, 6, 10, 8, 6,24,30, 2};
 
+/*Function to return max sum such that no two elements
+are adjacent */
 
-// returns true if there is triplet with sum equal
-// to 'sum' present in A[]. Also, prints the triplet
-bool find3Numbers(int A[], int sum)
-{
-	int l, r;
+int comparation(element1, element2){
 
-	// Fix the first element as A[i]
-	for (int i = 0; i < arr_size - 2; i++) {
+	int aux;
 
-		// Fix the second element as A[j]
-		for (int j = i + 1; j < arr_size - 1; j++) {
-
-			// Now look for the third number
-			for (int k = j + 1; k < arr_size; k++) {
-				if (A[i] + A[j] + A[k] == sum) {					
-					return true;
-				}
-			}
-		}
+	if(element1 > element2){
+		aux = element1;
+	}else{
+		aux = element2;
 	}
+	
+	return aux;
+}
 
-	// If we reach here, then no triplet was found
-	return false;
+int FindMaxSum(int arr[], int n) {
+    
+    int incl = arr[0];
+    int excl = 0;
+    int excl_new;
+    int i;
+
+    for (i = 1; i < n; i++) {
+    	/* current max excluding i */
+    	excl_new = comparation(incl, excl);
+
+    	/* current max including i */
+	    incl = excl + arr[i];
+	    excl = excl_new;
+    }
+
+    int result = comparation(incl, excl);
+
+    /* return max of incl and excl */
+    return result;
+
 }
 
 /* Driver program to test above function */
-int main()
-{
-	int sum = 22;
-	find3Numbers(A,  sum);
-	return 0;
+int main() {
+    
+    FindMaxSum(A, arr_size);
+    //printf("%d n", FindMaxSum(A, arr_size));
+    return 0;
 }
