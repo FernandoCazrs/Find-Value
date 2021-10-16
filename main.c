@@ -30,7 +30,7 @@ int main()
 {
 	int A[] = { 1, 4, 45, 6, 10, 8 , 4, 20, 43, 20};
 	int sum = 22;
-	int arr_size = sizeof(A) / sizeof(A[0]);
+	int arr_size = 10;
 	find3Numbers(A, arr_size, sum);
 	return 0;
 }
